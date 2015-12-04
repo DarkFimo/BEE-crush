@@ -1,0 +1,17 @@
+Abeille masquée -> Contrôle ou pas ? Rôle dans le jeu ?
+Appli web -> n'importe quel Framework -> 
+
+Sécurité Civile -> les informations doivent être traitables, considérant une vitesse d'échange rapide.
+
+Réponses :
+
+Contrôle de l'abeille masquée : héro qui sauvent des dangers publiques (feux, dégradations (tags), agressions, etc)
+IA de l'abeille masquée : méchant qui pose des problèmes de sécurité civiles. On incarne un humain (rôle ? Pompier ? Policier ? autre chose ?) qui empeche ces problèmes.
+Contrôle d'un humain avec une abeille masquée comme alliée ?
+
+Framework :
+AngularJS : trop compliqué
+Phaser ? WebGL et canvas
+
+Jeu éducatif : on se promène dans une ville, et on doit naviguer dans la ville, et trouver les mauvaises actions.
+		On clique sur une mauvaise action, et on nous explique (pop-up ?) pourquoi c'est pas bien.
