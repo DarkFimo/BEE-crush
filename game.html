@@ -1,0 +1,142 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Jeu d'abeille</title>
+		<link rel="icon" href="assets/sprites/abeille_d.png" />
+        <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
+        <script src="_site/js/jquery-2.0.3.min.js" type="text/javascript"></script>
+        <script src="_site/phaser/phaser.2.4.4.min.js" type="text/javascript"></script>
+        <script src="_site/phaser/blob.js" type="text/javascript"></script>
+        <script src="_site/phaser/canvas-to-blob.js" type="text/javascript"></script>
+        <script src="_site/phaser/filesaver.js" type="text/javascript"></script>
+        <script src="_site/phaser/embed.js" type="text/javascript"></script>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-family: Arial;
+                font-size: 14px;
+                background-color: #000000;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="phaser-example"></div>
+
+        <script type="text/javascript">
+
+        var IDE_HOOK = false;
+        var VERSION = '2.4.4';
+
+        
+// var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game("100", "100", Phaser.CANVAS, 'bee-game', { preload: preload, create: create });
+
+var abeille_d, abeille_g, rect, repimage;
+
+function preload() {
+	if(window.innerHeight > window.innerWidth){
+		alert("Mettez le téléphone en paysage et actualisez la page s'il vous plait !");
+		exit;
+	}
+	
+    game.load.image('background', 'assets/pics/background.png');
+	game.load.image('rect', 'assets/pics/rect.png');
+	game.load.image('abeille_d', 'assets/sprites/abeille_d.png');
+	game.load.image('abeille_g', 'assets/sprites/abeille_g.png');
+	
+	game.load.image('feutricolore', 'assets/sprites/feutricolore.png');
+	game.load.image('repfeutricolore', 'assets/pics/repfeutricolore.png');
+	
+	game.load.image('reppoubelle', 'assets/sprites/reppoubelle.png');
+	game.load.image('poubelle', 'assets/sprites/poubelle.png');
+	
+	game.load.image('reptelevision', 'assets/sprites/reptelevision.png');
+	game.load.image('television', 'assets/sprites/television.png');
+}
+
+function create() {
+    game.world.setBounds(0, 0, 2578, 1200);
+    game.physics.arcade.gravity.y = 100;
+    var background = game.add.image(0, 0, 'background');
+	
+	// Création de tous les sprites de danger à trouver
+	var feutricolore = game.add.image(1320, 155, 'feutricolore');
+	feutricolore.width = "60";
+	feutricolore.height = "70";
+	var television = game.add.image(480, 70, 'television');
+	television.width = "50";
+	television.height = "60";
+	var poubelle = game.add.image(1018, 172, 'poubelle');
+	poubelle.width = "30";
+	poubelle.height = "40";
+	
+	abeille_d = game.add.image(20, 120, 'abeille_d');
+	abeille_d.width = "100";
+	abeille_d.height = "70";
+	abeille_d.fixedToCamera = true;
+	
+	abeille_g = game.add.image(20, 120, 'abeille_g');
+	abeille_g.width = "100";
+	abeille_g.height = "70";
+	abeille_g.fixedToCamera = true;
+	abeille_g.visible = false;
+	
+	// Création des images qui sont cachées au début du jeu
+	rect = game.add.image(0, 0, 'rect');
+	rect.visible = false;
+	
+	repimage = game.add.image(0, 0, 'repfeutricolore');
+	repimage.visible = false;
+
+	// On gère les événements de clique sur un danger
+	background.inputEnabled = true;
+	background.events.onInputDown.add(avancerFond, this);
+	feutricolore.inputEnabled = true;
+	feutricolore.events.onInputDown.add(openDanger, {nomImage: "repfeutricolore", positionX: feutricolore.position.x});
+	television.inputEnabled = true;
+	television.events.onInputDown.add(openDanger, {nomImage: "reptelevision", positionX: television.position.x});
+	poubelle.inputEnabled = true;
+	poubelle.events.onInputDown.add(openDanger, {nomImage: "reppoubelle", positionX: poubelle.position.x});
+}
+
+function openDanger(nomImage, positionX) {
+	if(rect.visible == false) {
+		rect.position.x = this.positionX - 100;
+		rect.position.y = 0;
+		rect.visible = true;
+		repimage = game.add.image(rect.position.x, rect.position.y, this.nomImage);
+		repimage.width = rect.width;
+		repimage.height = rect.height;
+	}
+	else
+	{
+		rect.visible = false;
+		repimage.visible = false;
+	}
+}
+
+function avancerFond() {
+	rect.visible = false;
+	repimage.visible = false;
+	if(game.input.position.x > game.width / 2)
+	{
+		game.camera.x += 128;
+		abeille_g.visible = false;
+		abeille_d.visible = true;
+	}
+	else
+	{
+		game.camera.x -= 128;
+		abeille_g.visible = true;
+		abeille_d.visible = false;
+	}
+}
+ 
+        </script>
+
+    </body>
+</html>
