@@ -51,11 +51,20 @@ function preload() {
 	game.load.image('feutricolore', 'assets/sprites/feutricolore.png');
 	game.load.image('repfeutricolore', 'assets/pics/repfeutricolore.png');
 	
-	game.load.image('reppoubelle', 'assets/sprites/reppoubelle.png');
+	game.load.image('reppoubelle', 'assets/pics/reppoubelle.png');
 	game.load.image('poubelle', 'assets/sprites/poubelle.png');
 	
-	game.load.image('reptelevision', 'assets/sprites/reptelevision.png');
+	game.load.image('reptelevision', 'assets/pics/reptelevision.png');
 	game.load.image('television', 'assets/sprites/television.png');
+	
+	game.load.image('repbonbons', 'assets/pics/repbonbons.jpg');
+	game.load.image('voiture', 'assets/sprites/voiture.png');
+	
+	game.load.image('reprat', 'assets/pics/reprat.png');
+	game.load.image('cookie', 'assets/sprites/cookie.png');
+	
+	game.load.image('repcoq', 'assets/pics/repcoq.png');
+	game.load.image('poing', 'assets/sprites/poing.png');
 }
 
 function create() {
@@ -73,6 +82,15 @@ function create() {
 	var poubelle = game.add.image(1018, 172, 'poubelle');
 	poubelle.width = "30";
 	poubelle.height = "40";
+	var poing = game.add.image(232, 105, 'poing');
+	poing.width = "40";
+	poing.height = "50";
+	var cookie = game.add.image(2152, 172, 'cookie');
+	cookie.width = "40";
+	cookie.height = "40";
+	var voiture = game.add.image(1575, 215, 'voiture');
+	voiture.width = "70";
+	voiture.height = "50";
 	
 	abeille_d = game.add.image(20, 120, 'abeille_d');
 	abeille_d.width = "100";
@@ -96,16 +114,22 @@ function create() {
 	background.inputEnabled = true;
 	background.events.onInputDown.add(avancerFond, this);
 	feutricolore.inputEnabled = true;
-	feutricolore.events.onInputDown.add(openDanger, {nomImage: "repfeutricolore", positionX: feutricolore.position.x});
+	feutricolore.events.onInputDown.add(openDanger, {nomImage: "repfeutricolore"});
 	television.inputEnabled = true;
-	television.events.onInputDown.add(openDanger, {nomImage: "reptelevision", positionX: television.position.x});
+	television.events.onInputDown.add(openDanger, {nomImage: "reptelevision"});
 	poubelle.inputEnabled = true;
-	poubelle.events.onInputDown.add(openDanger, {nomImage: "reppoubelle", positionX: poubelle.position.x});
+	poubelle.events.onInputDown.add(openDanger, {nomImage: "reppoubelle"});
+	cookie.inputEnabled = true;
+	cookie.events.onInputDown.add(openDanger, {nomImage: "reprat"});
+	voiture.inputEnabled = true;
+	voiture.events.onInputDown.add(openDanger, {nomImage: "repbonbons"});
+	poing.inputEnabled = true;
+	poing.events.onInputDown.add(openDanger, {nomImage: "repcoq"});
 }
 
 function openDanger(nomImage, positionX) {
 	if(rect.visible == false) {
-		rect.position.x = this.positionX - 100;
+		rect.position.x = game.camera.x;
 		rect.position.y = 0;
 		rect.visible = true;
 		repimage = game.add.image(rect.position.x, rect.position.y, this.nomImage);
