@@ -36,6 +36,7 @@
 var game = new Phaser.Game("100", "100", Phaser.CANVAS, 'bee-game', { preload: preload, create: create });
 
 var abeille_d, abeille_g, rect, repimage;
+var sound;
 
 function preload() {
 	if(window.innerHeight > window.innerWidth){
@@ -65,12 +66,18 @@ function preload() {
 	
 	game.load.image('repcoq', 'assets/pics/repcoq.png');
 	game.load.image('poing', 'assets/sprites/poing.png');
+	
+	game.load.audio('sound', 'assets/sound/sound.mp3');
 }
 
 function create() {
     game.world.setBounds(0, 0, 2578, 1200);
     game.physics.arcade.gravity.y = 100;
     var background = game.add.image(0, 0, 'background');
+	
+	sound = game.add.audio('sound');
+	sound.play();
+	sound.loop = true;
 	
 	// Création de tous les sprites de danger à trouver
 	var feutricolore = game.add.image(1320, 155, 'feutricolore');
