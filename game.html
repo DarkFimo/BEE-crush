@@ -75,9 +75,8 @@ function create() {
     game.physics.arcade.gravity.y = 100;
     var background = game.add.image(0, 0, 'background');
 	
-	sound = game.add.audio('sound');
+	sound = game.add.audio('sound', 0.5, true);
 	sound.play();
-	sound.loop = true;
 	
 	// Création de tous les sprites de danger à trouver
 	var feutricolore = game.add.image(1320, 155, 'feutricolore');
